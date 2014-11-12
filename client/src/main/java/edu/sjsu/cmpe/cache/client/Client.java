@@ -45,10 +45,7 @@ public class Client {
   {
    int bucket=Hashing.consistentHash(Hashing.md5().hashString(Integer.toString(key)), Servers.size());
        System.out.println("The key value pair " + key +"-" + Servers.get(bucket).get(key)+ " is received to server " + bucket);
-
-   
-   
-   
-
     }
+}
+    
 }
