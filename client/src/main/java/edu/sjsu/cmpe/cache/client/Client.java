@@ -15,7 +15,7 @@ public class Client {
         System.out.println("get(1) => " + value);
         System.out.println("Existing Cache Client...");*/
        //adding all servers
-       List<CacheServiceInterface> Servers = new ArrayList<CacheServiceInterface>();
+        List<DistributedCacheService> Servers = new ArrayList<DistributedCacheService>();
       Servers.add(new DistributedCacheService("http://localhost:3000"));
       Servers.add(new DistributedCacheService("http://localhost:3001"));
       Servers.add(new DistributedCacheService("http://localhost:3002"));
@@ -26,11 +26,12 @@ public class Client {
    //Data put 
    System.out.println("\nNow we add all the data to the required Cache");
 
-   for(int key=1;key<=11;key++)
+   for(int key=1;key<11;key++)
    {
    
    int bucket = Hashing.consistentHash(Hashing.md5().hashString(Integer.toString(key)), Servers.size());
    Servers.get(bucket).put(key,Character.toString(input[key]));
+   //server.get(bucket).put(putkey, value[putkey]);
    
    System.out.println("PUT --> Key=" + key + " and Value="+ input[key] + " routed to Cache server at localhost://300"+ bucket);
    }
@@ -40,13 +41,11 @@ public class Client {
    //GET data from Cache servers consistent hashing
   System.out.println("GET data from Cache... ");
 
-  for(int key=1;key<input.length-1;key++)
+  for(int key=1;key<11;key++)
   {
    int bucket=Hashing.consistentHash(Hashing.md5().hashString(Integer.toString(key)), Servers.size());
-   Servers.get(bucket);
-   //String value = serverToGetData.get(key);
-  System.out.println("GET --> Obtained Key=" + key + " and Value="+ value + " from Cache server at localhost://300"+ bucket);
-  }
+       System.out.println("The key value pair " + key +"-" + Servers.get(bucket).get(key)+ " is received to server " + bucket);
+
    
    
    
