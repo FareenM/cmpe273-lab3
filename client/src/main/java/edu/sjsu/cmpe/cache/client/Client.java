@@ -29,7 +29,7 @@ public class Client {
    for(int key=1;key<11;key++)
    {
    
-   int bucket = Hashing.consistentHash(Hashing.md5().hashInt(Integer.toString(key)), Servers.size());
+   int bucket = Hashing.consistentHash(Hashing.md5().hashInt(key), Servers.size());
    Servers.get(bucket).put(key,Character.toString(input[key]));
    //server.get(bucket).put(putkey, value[putkey]);
    
@@ -43,7 +43,7 @@ public class Client {
 
   for(int key=1;key<11;key++)
   {
-   int bucket=Hashing.consistentHash(Hashing.md5().hashInt(Integer.toString(key)), Servers.size());
+   int bucket=Hashing.consistentHash(Hashing.md5().hashInt(key), Servers.size());
        System.out.println("The key value pair " + key +"-" + Servers.get(bucket).get(key)+ " is received to server " + bucket);
     }
 }
